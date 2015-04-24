@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<project name="Part5" basedir="." default="compile">
+    <property name="src.dir" value="src"/>
+    <property name="lib.dir" value="lib"/>
+    <property name="build.dir" value="build"/>
+    <property name="classes.dir" value="${build.dir}/classes"/>
+    <property name="jar.dir" value="${build.dir}/jar"/>
+
+    <path id="classpath">
+        <fileset dir="${lib.dir}" includes="**/*.jar"/>
+    </path>
+
+    <target name="clean">
+        <delete dir="${build.dir}"/>
+    </target>
+
+    <target name="compile">
+        <mkdir dir="${classes.dir}"/>
+        <javac srcdir="${src.dir}" destdir="${classes.dir}" classpathref="classpath"/>
+    </target>
+
+    <target name="jar" depends="compile">
+        <mkdir dir="${jar.dir}"/>
+        <jar destfile="${jar.dir}/Runners.jar" basedir="${classes.dir}">
+            <manifest>
+                <attribute name="Main-Class" value="Runners"/>
+                <attribute name="Class-Path" value="${lib.dir}/gridworld.jar"/>
+            </manifest>
+            <zipfileset excludes="META-INF/*.SF" src="${lib.dir}/gridworld.jar"/>
+        </jar>
+    </target>
+    <target name="run" depends="jar">
+        <java jar="${jar.dir}/Runners.jar" fork="true">
+            <classpath>
+                <path refid="classpath"/>
+            </classpath>
+        </java>
+    </target>
+</project>

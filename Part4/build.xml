@@ -1,0 +1,165 @@
+<?xml version="1.0"?>
+<project name="Part4" basedir="." default="compile">
+    <property name="src.dir" value="src"/>
+    <property name="lib.dir" value="lib"/>
+    <property name="build.dir" value="build"/>
+    <property name="classes.dir" value="${build.dir}/classes"/>
+    <property name="jar.dir" value="${build.dir}/jar"/>
+    <property name="asset.dir" value="asset"/>
+
+    <path id="classpath">
+        <fileset dir="${lib.dir}" includes="**/*.jar"/>
+    </path>
+
+    <fileset id="asset" dir="${asset.dir}">
+        <include name="**/*.gif"/>
+    </fileset>
+
+    <target name="clean">
+        <delete dir="${build.dir}"/>
+    </target>
+
+    <target name="compile">
+        <mkdir dir="${classes.dir}"/>
+        <javac srcdir="${src.dir}" destdir="${classes.dir}" classpathref="classpath"/>
+    </target>
+
+    <!-- ChameleonCritter -->
+    <target name="ChameleonCritterJar" depends="compile">
+        <mkdir dir="${jar.dir}"/>
+        <jar destfile="${jar.dir}/ChameleonCritter.jar" basedir="${classes.dir}">
+            <fileset refid="asset"/>
+            <manifest>
+                <attribute name="Main-Class" value="ChameleonRunner"/>
+                <attribute name="Class-Path" value="${lib.dir}/gridworld.jar"/>
+            </manifest>
+            <zipfileset excludes="META-INF/*.SF" src="${lib.dir}/gridworld.jar"/>
+        </jar>
+    </target>
+    <target name="run-chameleon-critter" depends="ChameleonCritterJar">
+        <java jar="${jar.dir}/ChameleonCritter.jar" fork="true">
+            <classpath>
+                <path refid="classpath"/>
+            </classpath>
+        </java>
+    </target>
+
+
+    <!-- ChameleonKid -->
+    <target name="ChameleonKidJar" depends="compile">
+        <mkdir dir="${jar.dir}"/>
+        <jar destfile="${jar.dir}/ChameleonKid.jar" basedir="${classes.dir}">
+            <fileset refid="asset"/>
+            <manifest>
+                <attribute name="Main-Class" value="ChameleonKidRunner"/>
+                <attribute name="Class-Path" value="${lib.dir}/gridworld.jar"/>
+            </manifest>
+            <zipfileset excludes="META-INF/*.SF" src="${lib.dir}/gridworld.jar"/>
+        </jar>
+    </target>
+    <target name="run-chameleon-kid" depends="ChameleonKidJar">
+        <java jar="${jar.dir}/ChameleonKid.jar" fork="true">
+            <classpath>
+                <path refid="classpath"/>
+            </classpath>
+        </java>
+    </target>
+
+
+    <!-- RockHound -->
+    <target name="RockHoundJar" depends="compile">
+        <mkdir dir="${jar.dir}"/>
+        <jar destfile="${jar.dir}/RockHound.jar" basedir="${classes.dir}">
+            <manifest>
+                <attribute name="Main-Class" value="RockHoundRunner"/>
+                <attribute name="Class-Path" value="${lib.dir}/gridworld.jar"/>
+            </manifest>
+            <zipfileset excludes="META-INF/*.SF" src="${lib.dir}/gridworld.jar"/>
+        </jar>
+    </target>
+    <target name="run-rock-hound" depends="RockHoundJar">
+        <java jar="${jar.dir}/RockHound.jar" fork="true">
+            <classpath>
+                <path refid="classpath"/>
+            </classpath>
+        </java>
+    </target>
+
+    <!-- BlusterCritter -->
+    <target name="BlusterCritterJar" depends="compile">
+        <mkdir dir="${jar.dir}"/>
+        <jar destfile="${jar.dir}/BlusterCritter.jar" basedir="${classes.dir}">
+            <manifest>
+                <attribute name="Main-Class" value="BlusterCritterRunner"/>
+                <attribute name="Class-Path" value="${lib.dir}/gridworld.jar"/>
+            </manifest>
+            <zipfileset excludes="META-INF/*.SF" src="${lib.dir}/gridworld.jar"/>
+        </jar>
+    </target>
+    <target name="run-bluster-critter" depends="BlusterCritterJar">
+        <java jar="${jar.dir}/BlusterCritter.jar" fork="true">
+            <classpath>
+                <path refid="classpath"/>
+            </classpath>
+        </java>
+    </target>
+
+    <!-- QuickCrab -->
+    <target name="QuickCrabJar" depends="compile">
+        <mkdir dir="${jar.dir}"/>
+        <jar destfile="${jar.dir}/QuickCrab.jar" basedir="${classes.dir}">
+            <manifest>
+                <attribute name="Main-Class" value="QuickCrabRunner"/>
+                <attribute name="Class-Path" value="${lib.dir}/gridworld.jar"/>
+            </manifest>
+            <zipfileset excludes="META-INF/*.SF" src="${lib.dir}/gridworld.jar"/>
+        </jar>
+    </target>
+    <target name="run-quick-crab" depends="QuickCrabJar">
+        <java jar="${jar.dir}/QuickCrab.jar" fork="true">
+            <classpath>
+                <path refid="classpath"/>
+            </classpath>
+        </java>
+    </target>
+
+    <!-- KingCrab -->
+    <target name="KingCrabJar" depends="compile">
+        <mkdir dir="${jar.dir}"/>
+        <jar destfile="${jar.dir}/KingCrab.jar" basedir="${classes.dir}" update="true">
+            <fileset refid="asset"/>
+            <manifest>
+                <attribute name="Main-Class" value="KingCrabRunner"/>
+                <attribute name="Class-Path" value="${lib.dir}/gridworld.jar"/>
+            </manifest>
+            <zipfileset excludes="META-INF/*.SF" src="${lib.dir}/gridworld.jar"/>
+        </jar>
+    </target>
+    <target name="run-king-crab" depends="KingCrabJar">
+        <java jar="${jar.dir}/KingCrab.jar" fork="true">
+            <classpath>
+                <path refid="classpath"/>
+            </classpath>
+        </java>
+    </target>
+
+
+    <!-- SuperCritter -->
+    <target name="SuperCritterJar" depends="compile">
+        <mkdir dir="${jar.dir}"/>
+        <jar destfile="${jar.dir}/SuperCritter.jar" basedir="${classes.dir}">
+            <manifest>
+                <attribute name="Main-Class" value="SuperCritterRunner"/>
+                <attribute name="Class-Path" value="${lib.dir}/gridworld.jar"/>
+            </manifest>
+            <zipfileset excludes="META-INF/*.SF" src="${lib.dir}/gridworld.jar"/>
+        </jar>
+    </target>
+    <target name="run-super-critter" depends="SuperCritterJar">
+        <java jar="${jar.dir}/SuperCritter.jar" fork="true">
+            <classpath>
+                <path refid="classpath"/>
+            </classpath>
+        </java>
+    </target>
+</project>

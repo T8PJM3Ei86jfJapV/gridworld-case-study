@@ -1,0 +1,97 @@
+<?xml version="1.0"?>
+<project name="Part2" basedir="." default="compile">
+    <property name="src.dir" value="src"/>
+    <property name="lib.dir" value="lib"/>
+    <property name="build.dir" value="build"/>
+    <property name="classes.dir" value="${build.dir}/classes"/>
+    <property name="jar.dir" value="${build.dir}/jar"/>
+
+    <path id="classpath">
+        <fileset dir="${lib.dir}" includes="**/*.jar"/>
+    </path>
+
+    <target name="clean">
+        <delete dir="${build.dir}"/>
+    </target>
+
+    <target name="compile">
+        <mkdir dir="${classes.dir}"/>
+        <javac srcdir="${src.dir}" destdir="${classes.dir}" classpathref="classpath"/>
+    </target>
+
+    <!-- CircleBug -->
+    <target name="CircleBugJar" depends="compile">
+        <mkdir dir="${jar.dir}"/>
+        <jar destfile="${jar.dir}/${ant.project.name}-CircleBug.jar" basedir="${classes.dir}">
+            <manifest>
+                <attribute name="Main-Class" value="CircleBugRunner"/>
+                <attribute name="Class-Path" value="${lib.dir}/gridworld.jar"/>
+            </manifest>
+            <zipfileset excludes="META-INF/*.SF" src="${lib.dir}/gridworld.jar"/>
+        </jar>
+    </target>
+    <target name="run-circle-bug" depends="CircleBugJar">
+        <java jar="${jar.dir}/${ant.project.name}-CircleBug.jar" fork="true">
+            <classpath>
+                <path refid="classpath"/>
+            </classpath>
+        </java>
+    </target>
+
+    <!-- SpiralBug -->
+    <target name="SpiralBugJar" depends="compile">
+        <mkdir dir="${jar.dir}"/>
+        <jar destfile="${jar.dir}/${ant.project.name}-SpiralBug.jar" basedir="${classes.dir}">
+            <manifest>
+                <attribute name="Main-Class" value="SpiralBugRunner"/>
+                <attribute name="Class-Path" value="${lib.dir}/gridworld.jar"/>
+            </manifest>
+            <zipfileset excludes="META-INF/*.SF" src="${lib.dir}/gridworld.jar"/>
+        </jar>
+    </target>
+    <target name="run-spiral-bug" depends="SpiralBugJar">
+        <java jar="${jar.dir}/${ant.project.name}-SpiralBug.jar" fork="true">
+            <classpath>
+                <path refid="classpath"/>
+            </classpath>
+        </java>
+    </target>
+
+    <!-- ZBug -->
+    <target name="ZBugJar" depends="compile">
+        <mkdir dir="${jar.dir}"/>
+        <jar destfile="${jar.dir}/${ant.project.name}-ZBug.jar" basedir="${classes.dir}">
+            <manifest>
+                <attribute name="Main-Class" value="ZBugRunner"/>
+                <attribute name="Class-Path" value="${lib.dir}/gridworld.jar"/>
+            </manifest>
+            <zipfileset excludes="META-INF/*.SF" src="${lib.dir}/gridworld.jar"/>
+        </jar>
+    </target>
+    <target name="run-z-bug" depends="ZBugJar">
+        <java jar="${jar.dir}/${ant.project.name}-ZBug.jar" fork="true">
+            <classpath>
+                <path refid="classpath"/>
+            </classpath>
+        </java>
+    </target>
+
+    <!-- DancingBug -->
+    <target name="DancingBugJar" depends="compile">
+        <mkdir dir="${jar.dir}"/>
+        <jar destfile="${jar.dir}/${ant.project.name}-DancingBug.jar" basedir="${classes.dir}">
+            <manifest>
+                <attribute name="Main-Class" value="DancingBugRunner"/>
+                <attribute name="Class-Path" value="${lib.dir}/gridworld.jar"/>
+            </manifest>
+            <zipfileset excludes="META-INF/*.SF" src="${lib.dir}/gridworld.jar"/>
+        </jar>
+    </target>
+    <target name="run-dancing-bug" depends="DancingBugJar">
+        <java jar="${jar.dir}/${ant.project.name}-DancingBug.jar" fork="true">
+            <classpath>
+                <path refid="classpath"/>
+            </classpath>
+        </java>
+    </target>
+</project>

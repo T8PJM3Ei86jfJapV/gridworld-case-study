@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<project name="Task3" basedir="." default="compile">
+    <property name="src.dir" value="src"/>
+    <property name="build.dir" value="build"/>
+    <property name="classes.dir" value="${build.dir}/classes"/>
+    <property name="jar.dir" value="${build.dir}/jar"/>
+
+    <target name="clean">
+        <delete dir="${build.dir}"/>
+    </target>
+
+    <target name="compile">
+        <mkdir dir="${classes.dir}"/>
+        <javac srcdir="${src.dir}" destdir="${classes.dir}"/>
+    </target>
+
+    <target name="demo-jar" depends="compile">
+        <mkdir dir="${jar.dir}"/>
+        <jar destfile="${jar.dir}/${ant.project.name}-RunnerDemo.jar" basedir="${classes.dir}">
+            <manifest>
+                <attribute name="Main-Class" value="Runners.RunnerDemo"/>
+            </manifest>
+        </jar>
+    </target>
+    <target name="run-demo" depends="demo-jar">
+        <java jar="${jar.dir}/${ant.project.name}-RunnerDemo.jar" fork="true"/>
+    </target>
+
+    <target name="part1-jar" depends="compile">
+        <mkdir dir="${jar.dir}"/>
+        <jar destfile="${jar.dir}/${ant.project.name}-RunnerPart1.jar" basedir="${classes.dir}">
+            <manifest>
+                <attribute name="Main-Class" value="Runners.RunnerPart1"/>
+            </manifest>
+        </jar>
+    </target>
+    <target name="run-part1" depends="part1-jar">
+        <java jar="${jar.dir}/${ant.project.name}-RunnerPart1.jar" fork="true"/>
+    </target>
+
+    <target name="part2-jar" depends="compile">
+        <mkdir dir="${jar.dir}"/>
+        <jar destfile="${jar.dir}/${ant.project.name}-RunnerPart2.jar" basedir="${classes.dir}">
+            <manifest>
+                <attribute name="Main-Class" value="Runners.RunnerPart2"/>
+            </manifest>
+        </jar>
+    </target>
+    <target name="run-part2" depends="part2-jar">
+        <java jar="${jar.dir}/${ant.project.name}-RunnerPart2.jar" fork="true"/>
+    </target>
+</project>
