@@ -1,4 +1,4 @@
-## Grid Word Case Study
+## Gridworld Case Study
 
 ### Part 1
 
